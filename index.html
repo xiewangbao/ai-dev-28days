@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 开发者生态 · 28 天个人提升计划</title>
+<style>
+:root{
+  --primary:#cc785c;--primary-active:#a9583e;--ink:#141413;--body:#3d3d3a;--body-strong:#252523;
+  --muted:#6c6a64;--muted-soft:#8e8b82;--hairline:#e6dfd8;--canvas:#faf9f5;--soft:#f5f0e8;
+  --card:#efe9de;--cream:#e8e0d2;--dark:#181715;--dark2:#252320;--on-dark:#faf9f5;--on-dark-soft:#a09d96;
+  --teal:#5db8a6;--amber:#e8a55a;--success:#5db872;
+  --serif:"Cormorant Garamond","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --sans:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--canvas);color:var(--body);font-family:var(--sans);font-size:15px;line-height:1.6}
+a{color:var(--primary-active);text-decoration:none;border-bottom:1px solid rgba(204,120,92,.35)}
+a:hover{border-bottom-color:var(--primary-active)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--serif);font-weight:400;color:var(--ink)}
+.eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:500}
+
+/* hero */
+.hero{padding:64px 0 40px;border-bottom:1px solid var(--hairline)}
+.hero h1{font-size:46px;line-height:1.1;letter-spacing:-1px;margin:12px 0 16px}
+.hero p.lead{font-size:17px;max-width:720px;color:var(--body)}
+.meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:28px}
+.meta div{font-size:13px;color:var(--muted)}
+.meta b{display:block;font-family:var(--serif);font-weight:400;font-size:28px;color:var(--ink)}
+
+/* sticky bar */
+.bar{position:sticky;top:0;z-index:10;background:rgba(250,249,245,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--hairline)}
+.bar .wrap{display:flex;align-items:center;gap:20px;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
+.prog{flex:1;min-width:200px}
+.prog .track{height:6px;background:var(--cream);border-radius:3px;overflow:hidden}
+.prog .fill{height:100%;background:var(--primary);width:0;transition:width .3s}
+.prog .lbl{font-size:12px;color:var(--muted);margin-top:4px}
+.btn{font-family:var(--sans);font-size:13px;padding:7px 14px;border-radius:8px;border:1px solid var(--hairline);background:#fff;color:var(--ink);cursor:pointer}
+.btn:hover{background:var(--soft)}
+.btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}
+.btn.primary:hover{background:var(--primary-active)}
+.startdate{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.startdate input{font-family:var(--sans);font-size:13px;padding:5px 8px;border:1px solid var(--hairline);border-radius:6px;background:#fff;color:var(--ink)}
+
+section{padding:48px 0}
+section h2{font-size:32px;letter-spacing:-.5px;margin:8px 0 20px}
+
+/* gap */
+.gap-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.gcard{background:var(--soft);border-radius:12px;padding:22px}
+.gcard h3{font-size:22px;margin-bottom:10px}
+.gcard ul{padding-left:18px}
+.gcard li{margin:4px 0}
+.gcard.dark{background:var(--dark);color:var(--on-dark-soft)}
+.gcard.dark h3{color:var(--on-dark)}
+.gcard.dark b{color:var(--on-dark)}
+
+/* week nav */
+.weeks{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+.wk{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:16px;cursor:pointer;transition:.15s}
+.wk:hover{border-color:var(--primary)}
+.wk.active{background:var(--dark);border-color:var(--dark)}
+.wk.active .wt,.wk.active .wn{color:var(--on-dark)}
+.wk.active .wd{color:var(--on-dark-soft)}
+.wk .wn{font-size:12px;letter-spacing:1.5px;color:var(--muted)}
+.wk .wt{font-family:var(--serif);font-size:20px;color:var(--ink);margin:4px 0}
+.wk .wd{font-size:12px;color:var(--muted)}
+.wk .wp{height:3px;background:var(--cream);border-radius:2px;margin-top:10px;overflow:hidden}
+.wk .wp i{display:block;height:100%;background:var(--primary);width:0}
+
+/* day cards */
+.day{background:#fff;border:1px solid var(--hairline);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.day.today{border-color:var(--primary);box-shadow:0 0 0 3px rgba(204,120,92,.12)}
+.day.done .dhead .dtitle{color:var(--muted)}
+.dhead{display:flex;align-items:center;gap:16px;padding:16px 20px;cursor:pointer}
+.dnum{font-family:var(--serif);font-size:26px;color:var(--primary);width:48px;flex-shrink:0;line-height:1}
+.day.done .dnum{color:var(--success)}
+.dmain{flex:1;min-width:0}
+.dtitle{font-size:16px;font-weight:500;color:var(--ink)}
+.dsub{font-size:13px;color:var(--muted)}
+.tag{font-size:11px;padding:2px 8px;border-radius:10px;background:var(--soft);color:var(--muted);white-space:nowrap}
+.tag.today{background:var(--primary);color:#fff}
+.dcount{font-size:12px;color:var(--muted);white-space:nowrap}
+.chev{color:var(--muted-soft);transition:transform .2s}
+.day.open .chev{transform:rotate(90deg)}
+.dbody{display:none;padding:0 20px 20px 84px;border-top:1px solid var(--hairline-soft,#ebe6df)}
+.day.open .dbody{display:block}
+.blk{margin-top:16px}
+.blk h4{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:8px}
+.goal{font-size:14px;color:var(--body-strong)}
+.task{display:flex;gap:10px;align-items:flex-start;padding:6px 0}
+.task input{margin-top:5px;accent-color:var(--primary);width:15px;height:15px;flex-shrink:0;cursor:pointer}
+.task label{cursor:pointer}
+.task.checked label{color:var(--muted-soft);text-decoration:line-through}
+.links{display:flex;flex-direction:column;gap:6px}
+.lk{display:flex;gap:10px;align-items:baseline;font-size:14px}
+.lk .src{font-size:11px;color:var(--muted);background:var(--soft);padding:1px 7px;border-radius:4px;white-space:nowrap;font-family:var(--mono)}
+.out{background:var(--soft);border-left:3px solid var(--primary);padding:10px 14px;border-radius:0 8px 8px 0;font-size:14px;color:var(--body-strong)}
+.tip{font-size:13px;color:var(--muted);background:#fbf3e6;border-radius:8px;padding:10px 14px}
+textarea{width:100%;min-height:70px;font-family:var(--sans);font-size:14px;padding:10px;border:1px solid var(--hairline);border-radius:8px;background:var(--canvas);color:var(--ink);resize:vertical}
+
+/* library */
+.lib{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.libc{background:var(--soft);border-radius:12px;padding:20px}
+.libc h3{font-size:20px;margin-bottom:10px}
+.libc .lk{padding:3px 0}
+
+/* dark band */
+.band{background:var(--dark);color:var(--on-dark-soft);padding:48px 0}
+.band h2{color:var(--on-dark)}
+.band table{width:100%;border-collapse:collapse;font-size:14px}
+.band th,.band td{text-align:left;padding:12px 10px;border-bottom:1px solid #34312c;vertical-align:top}
+.band th{color:var(--on-dark);font-weight:500;font-size:13px}
+.band td:first-child{color:var(--on-dark);white-space:nowrap}
+footer{padding:32px 0 48px;font-size:12px;color:var(--muted)}
+@media(max-width:760px){.gap-grid,.lib{grid-template-columns:1fr}.weeks{grid-template-columns:1fr 1fr}.hero h1{font-size:34px}.dbody{padding-left:20px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Personal Growth · AI 工具与开发者生态</div>
+    <h1>AI 开发者生态<br>28 天个人提升计划</h1>
+    <p class="lead">目标：系统补齐【产品上手 / 平台规则 / 开发者营销与模型常识 / 公开实践与沉淀】四个模块，每天约 60 分钟，每天一个可交付产出。进度与笔记自动保存在本浏览器。</p>
+    <div class="meta">
+      <div><b>28</b>天</div>
+      <div><b>4</b>个阶段</div>
+      <div><b id="m-tasks">–</b>项任务</div>
+      <div><b id="m-links">–</b>条海外资料</div>
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="prog">
+      <div class="track"><div class="fill" id="pfill"></div></div>
+      <div class="lbl" id="plbl">0 / 0 已完成</div>
+    </div>
+    <div class="startdate">开始日期 <input type="date" id="start"></div>
+    <button class="btn primary" id="gotoday">跳到今天</button>
+    <button class="btn" id="expand">展开全部</button>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Gap Analysis</div>
+    <h2>已具备与待补齐</h2>
+    <div class="gap-grid">
+      <div class="gcard">
+        <h3>可直接迁移</h3>
+        <ul>
+          <li>大规模 Discord 运营（ABI 232 万用户）</li>
+          <li>舆情监测体系（PostPulse Dashboard / 监控站 / SOP）</li>
+          <li>英语工作语言、海外留学背景</li>
+          <li>AI 实操：双 Agent 流水线、GitHub Pages 部署</li>
+          <li>跨团队协同、产品反馈回传</li>
+        </ul>
+      </div>
+      <div class="gcard dark">
+        <h3>需补齐（按优先级）</h3>
+        <ul>
+          <li><b>产品深度</b>：OpenClaw / Claude Code 亲手跑通</li>
+          <li><b>平台规则</b>：GitHub / Reddit / HN / 技术 Discord</li>
+          <li><b>语气切换</b>：hype 转向诚实、具体、可复现</li>
+          <li><b>技术 KOL 关系</b>：早期权限、共建、署名</li>
+          <li><b>模型常识</b>：上下文、tool use、benchmark</li>
+          <li><b>反馈转化</b>：issue 分诊、需求优先级</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow">Daily Plan</div>
+    <h2>每日进度</h2>
+    <div class="weeks" id="weeks"></div>
+    <div id="days"></div>
+  </div>
+</section>
+
+<div class="band">
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--on-dark-soft)">Mindset Shift</div>
+    <h2 style="margin:8px 0 20px">玩家社区与开发者社区的打法差异</h2>
+    <table>
+      <tr><th>维度</th><th>玩家社区（ABI 经验）</th><th>开发者社区</th></tr>
+      <tr><td>核心诉求</td><td>情绪、娱乐、福利、归属感</td><td>解决问题、效率、可信度、被认可的贡献</td></tr>
+      <tr><td>内容语气</td><td>slang、hype、冲击力</td><td>具体、诚实、可复现，附 benchmark 与已知问题</td></tr>
+      <tr><td>主阵地</td><td>Discord / TikTok / YouTube / X</td><td>GitHub / Reddit / HN / 技术 Discord / X 开发者圈</td></tr>
+      <tr><td>KOL 合作</td><td>付费推广、素材包、活动联动</td><td>早期权限、API 额度、共建、署名致谢，付费易反噬</td></tr>
+      <tr><td>衡量指标</td><td>规模、曝光、增长率</td><td>活跃贡献者、issue 响应时长、PR 合入、留存与口碑</td></tr>
+      <tr><td>危机处理</td><td>公告安抚 + 补偿</td><td>直接认问题，给 workaround 与修复时间点</td></tr>
+      <tr><td>反馈回传</td><td>情绪舆情、热点话题</td><td>复现步骤、影响面、优先级，结构化交给研发</td></tr>
+    </table>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Resource Library</div>
+    <h2>资料总库</h2>
+    <div class="lib" id="lib"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">资料整理于 2026-11-05。OpenClaw 迭代快，命令以 docs.openclaw.ai 与 <code>--help</code> 为准；仅从官方来源（openclaw.ai / docs.openclaw.ai / github.com/openclaw）安装。建议在个人设备上实操，不接入公司账号与内部数据。</div>
+</footer>
+
+<script>
+const L = {
+  ocDocs:["OpenClaw 官方文档","https://docs.openclaw.ai/","docs"],
+  ocDocsZh:["OpenClaw 中文文档","https://docs.openclaw.ai/zh-CN","docs"],
+  ocSite:["OpenClaw 官网","https://openclaw.ai/","official"],
+  ocGh:["openclaw/openclaw 主仓库","https://github.com/openclaw/openclaw","github"],
+  ocContrib:["CONTRIBUTING.md 贡献指南","https://github.com/openclaw/openclaw/blob/main/CONTRIBUTING.md","github"],
+  ocIssues:["OpenClaw Issues","https://github.com/openclaw/openclaw/issues","github"],
+  ocReleases:["OpenClaw Releases（看 release note 写法）","https://github.com/openclaw/openclaw/releases","github"],
+  ocCommunity:["openclaw/community（社区角色与治理）","https://github.com/openclaw/community","github"],
+  ocDiscord:["OpenClaw 官方 Discord","https://discord.gg/clawd","discord"],
+  ocForum:["OpenClaw 官方论坛（Discourse）","https://community.openclaw.ai/","forum"],
+  ocReddit:["r/OpenClaw","https://www.reddit.com/r/OpenClaw/","reddit"],
+  ocX:["X @openclaw","https://x.com/openclaw","x"],
+  steipete:["X @steipete（作者 Peter Steinberger）","https://x.com/steipete","x"],
+  clawhub:["ClawHub（Skill / 插件市场）","https://clawhub.ai/","official"],
+  clawdocs:["社区资源汇总（含 First 7 Days 指南）","https://clawdocs.org/reference/resources","community"],
+  devtoOc:["DEV Community #openclaw 教程","https://dev.to/t/openclaw","dev.to"],
+  fccOc:["freeCodeCamp OpenClaw 教程检索","https://www.freecodecamp.org/news/search?query=openclaw","fcc"],
+  wsl:["Windows 安装 WSL2","https://learn.microsoft.com/en-us/windows/wsl/install","microsoft"],
+  ccOverview:["Claude Code 官方文档 Overview","https://code.claude.com/docs/en/overview","docs"],
+  ccBest:["Claude Code Best Practices（Anthropic 工程博客）","https://www.anthropic.com/engineering/claude-code-best-practices","anthropic"],
+  ccSkills:["Claude Code · Skills","https://code.claude.com/docs/en/skills","docs"],
+  ccHooks:["Claude Code · Hooks Guide","https://code.claude.com/docs/en/hooks-guide","docs"],
+  ccMcp:["Claude Code · MCP","https://code.claude.com/docs/en/mcp","docs"],
+  ccKit:["Claude Code Communications Kit（官方社区内容范本）","https://code.claude.com/docs/en/communications-kit","docs"],
+  ccGh:["anthropics/claude-code（Issues 区）","https://github.com/anthropics/claude-code","github"],
+  ccCourse:["Claude Code in Action（免费课 + 证书）","https://anthropic.skilljar.com/claude-code-in-action","course"],
+  mcpCourse:["Introduction to MCP（免费课）","https://anthropic.skilljar.com/introduction-to-model-context-protocol","course"],
+  skillsCourse:["Introduction to Agent Skills（免费课）","https://anthropic.skilljar.com/introduction-to-agent-skills","course"],
+  mcpSite:["Model Context Protocol 官网","https://modelcontextprotocol.io/","docs"],
+  anthDiscord:["Anthropic / Claude 官方 Discord","https://www.anthropic.com/discord","discord"],
+  rClaude:["r/ClaudeAI","https://www.reddit.com/r/ClaudeAI/","reddit"],
+  rClaudeCode:["r/ClaudeCode","https://www.reddit.com/r/ClaudeCode/","reddit"],
+  rLocal:["r/LocalLLaMA","https://www.reddit.com/r/LocalLLaMA/","reddit"],
+  ghHello:["GitHub Hello World 入门","https://docs.github.com/en/get-started/start-your-journey/hello-world","github"],
+  ghSkills:["GitHub Skills 互动课程","https://skills.github.com/","github"],
+  ghIssues:["About Issues（GitHub 文档）","https://docs.github.com/en/issues/tracking-your-work-with-issues/learning-about-issues/about-issues","github"],
+  ghPR:["About Pull Requests","https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests","github"],
+  osContrib:["Open Source Guide · How to Contribute","https://opensource.guide/how-to-contribute/","guide"],
+  osCommunity:["Open Source Guide · Building Welcoming Communities","https://opensource.guide/building-community/","guide"],
+  osBest:["Open Source Guide · Best Practices for Maintainers","https://opensource.guide/best-practices/","guide"],
+  orbit:["Orbit Model（开发者社区分层模型）","https://github.com/orbit-love/orbit-model","github"],
+  orbitCn:["Orbit Model 中文版","https://github.com/nweldev/orbit-model/blob/main/README.CN.md","github"],
+  reddiquette:["Reddiquette（Reddit 社区礼仪）","https://support.reddithelp.com/hc/en-us/articles/205926439-Reddiquette","reddit"],
+  hnGuide:["Hacker News Guidelines","https://news.ycombinator.com/newsguidelines.html","hn"],
+  hnShow:["Show HN 规则","https://news.ycombinator.com/showhn.html","hn"],
+  hnSearch:["HN Algolia 搜索（舆情检索）","https://hn.algolia.com/","hn"],
+  markepear:["Developer Markepear（开发者营销）","https://www.markepear.com/","blog"],
+  markDO:["Developer content marketing（DigitalOcean 拆解）","http://markepear.com/blog/developer-content-marketing","blog"],
+  markROI:["How to prove ROI of developer marketing","http://markepear.com/blog/how-to-prove-roi-of-developer-marketing","blog"],
+  devrelcon:["DevRelCon / developerrelations.com","https://developerrelations.com/","community"],
+  simon:["Simon Willison's Weblog（技术社区语气标杆）","https://simonwillison.net/","blog"],
+  latent:["Latent Space（AI 工程播客 / Newsletter）","https://www.latent.space/","podcast"],
+  karpathy1:["Karpathy · Intro to Large Language Models（1h）","https://www.youtube.com/watch?v=zjkBMFhNj_g","youtube"],
+  karpathy2:["Karpathy · Deep Dive into LLMs like ChatGPT","https://www.youtube.com/watch?v=7xTGNNLPyMI","youtube"],
+  hfCourse:["Hugging Face LLM Course","https://huggingface.co/learn/llm-course","course"],
+  swebench:["SWE-bench（编程能力评测）","https://www.swebench.com/","benchmark"],
+  lmarena:["LMArena（模型对战排行）","https://lmarena.ai/","benchmark"],
+  aa:["Artificial Analysis（模型性能 / 价格对比）","https://artificialanalysis.ai/","benchmark"],
+  hfTencent:["Tencent @ Hugging Face","https://huggingface.co/tencent","hf"],
+  ghHunyuan:["Tencent-Hunyuan @ GitHub","https://github.com/Tencent-Hunyuan","github"],
+};
+
+const W = [
+  {n:"WEEK 1",t:"产品上手",d:"OpenClaw + Claude Code 亲手跑通"},
+  {n:"WEEK 2",t:"平台规则",d:"GitHub / Reddit / HN / 技术 Discord"},
+  {n:"WEEK 3",t:"营销与模型",d:"开发者营销、KOL、模型常识、洞察"},
+  {n:"WEEK 4",t:"实践沉淀",d:"发帖、PR、答疑、总结复盘"},
+];
+
+const D = [
+ // WEEK 1
+ {w:0,t:"建立 OpenClaw 认知地图",s:"产品是什么、给谁用、社区在哪",
+  g:"能用三句话讲清 OpenClaw 的定位、用户和社区阵地。",
+  k:["通读官方文档首页与 Why OpenClaw 部分","了解改名史：Clawdbot → Moltbot → OpenClaw（2026-01-30 定名），以及 OpenClaw Foundation 的成立","关注官方 X、作者 X，订阅 r/OpenClaw","记录官方渠道清单：GitHub / Discord / 论坛 / Reddit / X / YouTube"],
+  l:["ocDocs","ocDocsZh","ocSite","clawdocs","ocX","steipete"],
+  o:"一页笔记：OpenClaw 定位 / 核心用户 / 官方渠道矩阵 / 社区规模"},
+ {w:0,t:"安装 OpenClaw 并跑通 Dashboard",s:"亲手踩坑，记录报错",
+  g:"本机跑通 Gateway 与 Web Control UI。",
+  k:["Windows 先装 WSL2（官方推荐），或用 install.ps1","执行一键安装脚本，完成 openclaw onboard","运行 openclaw dashboard，打开 http://127.0.0.1:18789/ 发出第一条消息","每个报错都截图记录：报错信息 / 原因 / 解决方式"],
+  l:["ocDocs","wsl","ocGh"],
+  o:"《OpenClaw 安装踩坑记录》英文草稿（后续发帖素材）",
+  tip:"建议用个人设备与个人 API Key，不接入公司账号和内部数据。"},
+ {w:0,t:"接入渠道 + 定制人设 + 装 Skill",s:"体验核心卖点",
+  g:"从手机聊天 App 驱动 OpenClaw，理解 Skills 生态。",
+  k:["接入一个渠道（文档建议 Telegram 最快，或 Discord）","编辑 soul.md，定义 agent 性格与规则","在 ClawHub 浏览 Skill，安装 1–2 个（如 GitHub gh）","试一次定时任务（cron）或多 agent 路由"],
+  l:["ocDocs","clawhub","clawdocs"],
+  o:"3 个你自己真实用得上的 OpenClaw 场景清单"},
+ {w:0,t:"Claude Code 上手",s:"官方文档 + Best Practices",
+  g:"理解 CLAUDE.md、Skills、Hooks、MCP、Subagents 分别解决什么问题。",
+  k:["读 Claude Code Overview，安装并完成第一个任务","精读 Best Practices（权限、CLI 工具、MCP、Hooks、Skills、Subagents）","用 Claude Code 给自己的小项目写 CLAUDE.md"],
+  l:["ccOverview","ccBest","ccGh"],
+  o:"一张对照表：CLAUDE.md / Skill / Hook / MCP / Subagent 各自的用途与例子"},
+ {w:0,t:"完成 Claude Code in Action 课程",s:"1 小时视频 + 测验 + 证书",
+  g:"拿到 Anthropic 官方结课证书。",
+  k:["注册 Skilljar，完成 Claude Code in Action 全部章节","通过 Quiz 拿证书","选修：Introduction to Agent Skills"],
+  l:["ccCourse","skillsCourse"],
+  o:"Anthropic 官方证书链接"},
+ {w:0,t:"动手做一个社区运营 Skill / MCP",s:"把运营工作流做成可复用工具",
+  g:"做出一个和社区运营相关的 Claude Code Skill 或 OpenClaw Skill。",
+  k:["参考 Skills 文档，做一个 /community-digest：汇总 GitHub issues 生成周报","或用 Hooks 做一个任务完成通知","了解 MCP 基本概念，选修 MCP 入门课"],
+  l:["ccSkills","ccHooks","ccMcp","mcpSite","mcpCourse"],
+  o:"一个可演示、能在日常工作中复用的 Skill"},
+ {w:0,t:"第一周复盘",s:"把用户视角沉淀下来",
+  g:"用开发者的身份回看产品体验。",
+  k:["整理 Day 2–6 的踩坑与亮点","列出你作为用户最大的 3 个卡点（这些就是社区高频问题）","写英文 use case 草稿：How a community manager uses OpenClaw + Claude Code"],
+  l:["devtoOc","fccOc"],
+  o:"英文 use case 初稿（约 600–800 词）"},
+ // WEEK 2
+ {w:1,t:"GitHub 基础协作",s:"repo / branch / commit / PR",
+  g:"能独立完成一次 fork、修改、PR 的完整流程。",
+  k:["完成 GitHub Hello World","选做 1 门 GitHub Skills 互动课（Introduction to GitHub）","精读 OpenClaw README 与 CONTRIBUTING.md"],
+  l:["ghHello","ghSkills","ghPR","ocContrib"],
+  o:"在自己的仓库完成一次 PR 并合入"},
+ {w:1,t:"Issue 文化与分诊",s:"看懂开发者怎么提问题",
+  g:"理解 label、模板、重复问题关闭、维护者回复的规则。",
+  k:["读 About Issues 文档","在 OpenClaw Issues 浏览 20 条（bug / feature / question 各若干）","观察维护者的回复语气、label 体系与关闭理由","观察 Claude Code 仓库的 Issues 作对照"],
+  l:["ghIssues","ocIssues","ccGh"],
+  o:"20 条 issue 分类表：类型 / 影响面 / 是否高频 / 维护者处理方式"},
+ {w:1,t:"开源社区运营方法论",s:"Open Source Guide + Orbit Model",
+  g:"掌握开源社区的成员分层与贡献者成长路径。",
+  k:["读 Building Welcoming Communities 与 Best Practices for Maintainers","读 Orbit Model：Love × Reach、O1–O4 分层、1:few:many","读 openclaw/community，看社区角色怎么设计"],
+  l:["osCommunity","osBest","osContrib","orbit","orbitCn","ocCommunity"],
+  o:"用 Orbit 四层模型套 OpenClaw 社区：每层是谁、要什么、怎么触达"},
+ {w:1,t:"Reddit 规则与高赞帖拆解",s:"value-first，反营销",
+  g:"知道在技术 subreddit 怎么发帖不被踩。",
+  k:["读 Reddiquette 与各版规（侧栏 Rules）","r/OpenClaw、r/ClaudeAI、r/ClaudeCode、r/LocalLLaMA 各看本月 Top","拆解 5 个高赞帖：标题结构、正文、是否带链接、评论区氛围","拆解 2 个被踩的帖子，找原因"],
+  l:["reddiquette","ocReddit","rClaude","rClaudeCode","rLocal"],
+  o:"Reddit 发帖 checklist（10 条以内）"},
+ {w:1,t:"Hacker News 生态",s:"技术圈最挑剔的舆论场",
+  g:"理解 HN 的社区规则与 Show HN 发布逻辑。",
+  k:["读 HN Guidelines 与 Show HN 规则","用 Algolia 搜 openclaw、claude code，按热度看讨论","总结 HN 上对 AI 工具的典型质疑：安全、隐私、hype、成本"],
+  l:["hnGuide","hnShow","hnSearch"],
+  o:"HN 舆情样本：Top 讨论帖 + 主要观点归类"},
+ {w:1,t:"技术 Discord 观察",s:"和 ABI 服务器做对比",
+  g:"看清技术服的频道结构与互助机制。",
+  k:["加入 OpenClaw Discord 与 Anthropic Discord","画出频道结构：#help / #users-helping-users / showcase / feature request 等","观察志愿者答疑、管理员介入、bug 回传的流程","对照 ABI 服务器，找出可迁移与不可迁移的做法"],
+  l:["ocDiscord","anthDiscord","ocForum"],
+  o:"技术 Discord 与游戏 Discord 结构对比图"},
+ {w:1,t:"第二周复盘",s:"语气切换",
+  g:"形成开发者社区的语气直觉。",
+  k:["对照页面下方「打法差异」表，补充你自己的观察","把 Day 7 的 use case 按 Reddit / HN 规则重写一版","去掉所有 hype 词，补上具体步骤与已知限制"],
+  l:["reddiquette","hnGuide"],
+  o:"use case 第二版（符合技术社区语气）"},
+ // WEEK 3
+ {w:2,t:"开发者营销基本功",s:"educate，不要 persuade",
+  g:"理解为什么开发者讨厌营销腔，以及有效的做法。",
+  k:["浏览 Developer Markepear 首页与 Developer Marketing Guide","读 ROI 一文：社区与内容如何证明价值","摘录 10 条可直接用在 OpenClaw 场景的原则"],
+  l:["markepear","markROI","devrelcon"],
+  o:"开发者营销原则卡（10 条）"},
+ {w:2,t:"技术内容拆解",s:"DigitalOcean + Claude Code 官方范本",
+  g:"掌握技术分享、话题讨论、资源整理三类内容的写法。",
+  k:["读 DigitalOcean 内容策略拆解","精读 Claude Code Communications Kit，看官方怎么写 tips 类社区内容","读 Simon Willison 近期 3 篇博客，感受技术写作语气"],
+  l:["markDO","ccKit","simon"],
+  o:"OpenClaw 内容日历草案：2 周 × 3 类内容"},
+ {w:2,t:"技术 KOL 地图",s:"1:few:many 的 few",
+  g:"建立 AI 开发者 KOL 清单与合作方式。",
+  k:["按 YouTube / X / Newsletter / 播客 / 开源维护者五类各找 3 人","记录每人：粉丝量级、内容类型、是否发过 OpenClaw / Claude Code 内容","设计合作方式：早期权限 / API 额度 / 共建 / 联合直播 / 署名致谢"],
+  l:["orbit","latent","simon","steipete"],
+  o:"技术 KOL 清单（15 人）+ 分层合作方案"},
+ {w:2,t:"LLM 基础常识",s:"理解 AI 产品的底层",
+  g:"能听懂并转述 token、上下文、训练与推理、tool use、agent。",
+  k:["看 Karpathy《Intro to Large Language Models》（1 小时）","选看《Deep Dive into LLMs like ChatGPT》前半段","记 15 个术语，每个用一句中文解释"],
+  l:["karpathy1","karpathy2","hfCourse"],
+  o:"LLM 术语表（15 条，中英对照）"},
+ {w:2,t:"Benchmark 与开源模型",s:"看懂模型评测",
+  g:"能看懂模型排行榜，知道开发者用什么指标选模型。",
+  k:["了解 SWE-bench 怎么测编程能力","浏览 LMArena 与 Artificial Analysis：能力 / 速度 / 价格","浏览腾讯在 Hugging Face 与 GitHub 的开源模型页，看社区反馈怎么呈现"],
+  l:["swebench","lmarena","aa","hfTencent","ghHunyuan"],
+  o:"一页笔记：开发者选模型看的 5 个指标"},
+ {w:2,t:"技术社区舆情体系",s:"复用 PostPulse 经验",
+  g:"把舆情能力迁移到技术社区：信号源换成 GitHub / HN / Reddit。",
+  k:["列信号源：GitHub issues 趋势 / HN Algolia / Reddit 搜索 / Discord #help 高频问题","定义指标：讨论量、情感、issue 响应时长、高频卡点","思考：哪些部分可用 PostPulse 或 Claude Code Skill 自动化"],
+  l:["hnSearch","ocIssues","ocReddit"],
+  o:"技术社区舆情监测方案（一页）"},
+ {w:2,t:"第三周复盘：社区周报样稿",s:"洞察输出演练",
+  g:"产出一份完整的社区洞察报告。",
+  k:["基于本周数据写一份 OpenClaw 社区周报","结构：热点话题 / 高频问题 / 情感走势 / 产品建议 / 下周动作","控制在 1 页"],
+  l:["ocReleases","hnSearch"],
+  o:"《OpenClaw 社区周报》样稿"},
+ // WEEK 4
+ {w:3,t:"发布英文 use case",s:"第一次公开分享",
+  g:"在技术社区发布一篇真实的使用分享。",
+  k:["把 use case 终稿发到 dev.to 或个人博客","按版规同步到 r/OpenClaw（以个人身份，不带营销腔）","认真回复评论区每一条"],
+  l:["devtoOc","ocReddit","reddiquette"],
+  o:"公开帖子链接 + 互动数据"},
+ {w:3,t:"提交第一个贡献",s:"docs PR 或高质量 issue",
+  g:"GitHub 主页出现真实的开源贡献记录。",
+  k:["按 CONTRIBUTING.md 找文档缺漏（中文文档、Windows 安装步骤常有空间）","提交一个 docs PR，或按模板提一个可复现的 bug issue","跟进维护者反馈"],
+  l:["ocContrib","ocIssues","osContrib"],
+  o:"PR / issue 链接"},
+ {w:3,t:"Discord 答疑实战",s:"成为 helper",
+  g:"在 #users-helping-users 回答 5 个问题。",
+  k:["优先回答 Day 2–3 你踩过的同类坑","回答格式：确认问题 → 步骤 → 文档链接","记录哪些问题反复出现"],
+  l:["ocDiscord","ocForum"],
+  o:"答疑记录 5 条 + 高频问题清单"},
+ {w:3,t:"社区需求转化演练",s:"反馈闭环",
+  g:"把社区声音转成研发能直接用的输入。",
+  k:["从 Day 9 的 20 条 issue 和 Day 24 的高频问题中筛出 Top 5","每条写：现象 / 复现步骤 / 影响面 / 建议优先级 / 建议方案","写成一份给研发的 feedback memo"],
+  l:["ocIssues","ghIssues"],
+  o:"《社区反馈 → 产品需求》memo"},
+ {w:3,t:"个人实践总结",s:"把实践串起来",
+  g:"用一页纸梳理 AI 工具实践、开发者社区观察与社区运营方法。",
+  k:["模块一：Roco 双 Agent 流水线（EN/JP 撰写 + 术语校对）","模块二：PostPulse 舆情 Dashboard","模块三：OpenClaw 实践（use case / PR / 答疑 / 周报 / 需求 memo）","模块四：Claude Code 证书 + 自制 Skill"],
+  l:["ccCourse"],
+  o:"个人实践总结（网页或 PDF）"},
+ {w:3,t:"方法论沉淀",s:"把规模经验提炼成可复用方法",
+  g:"把游戏社区经验与开发者社区实践整合为一套社区运营方法论。",
+  k:["梳理：Discord 232 万用户运营经验中，哪些方法可以复用到技术社区","思考：开发者社区和玩家社区最本质的区别是什么，各举一个例子","思考：冷启动一个海外技术社区，前 90 天怎么做","思考：GitHub 上出现负面 issue 刷屏，怎么处理","思考：如何衡量技术社区的健康度"],
+  l:["orbit","markROI"],
+  o:"方法论笔记 + 4 个开放问题的思考稿"},
+ {w:3,t:"28 天总复盘",s:"复盘与下一步",
+  g:"回看 28 天成果，确定下一阶段的持续投入。",
+  k:["对照 Day 1 笔记，检查认知变化","整理全部公开产出链接（帖子 / PR / 答疑）","请 AI 围绕 Day 27 的开放问题做一次追问式演练","确定长期节奏：保持 Discord 答疑，每月一篇技术分享"],
+  l:[],
+  o:"28 天复盘 + 下一阶段计划"},
+];
+
+const LIB = [
+  {t:"OpenClaw 官方",k:["ocDocs","ocDocsZh","ocSite","ocGh","ocContrib","ocIssues","ocReleases","ocCommunity","clawhub"]},
+  {t:"OpenClaw 社区阵地",k:["ocDiscord","ocForum","ocReddit","ocX","steipete","clawdocs","devtoOc","fccOc"]},
+  {t:"Claude Code",k:["ccOverview","ccBest","ccSkills","ccHooks","ccMcp","ccKit","ccGh","anthDiscord","rClaude","rClaudeCode"]},
+  {t:"免费课程（含证书）",k:["ccCourse","mcpCourse","skillsCourse","hfCourse","ghSkills"]},
+  {t:"GitHub 与开源方法论",k:["ghHello","ghIssues","ghPR","osContrib","osCommunity","osBest","orbit","orbitCn"]},
+  {t:"Reddit / HN 规则",k:["reddiquette","hnGuide","hnShow","hnSearch","rLocal"]},
+  {t:"开发者营销与 DevRel",k:["markepear","markDO","markROI","devrelcon","simon","latent"]},
+  {t:"模型常识与评测",k:["karpathy1","karpathy2","swebench","lmarena","aa","mcpSite","hfTencent","ghHunyuan"]},
+];
+
+const KEY="devcomm28_v1";
+let S=JSON.parse(localStorage.getItem(KEY)||"{}");
+S.tasks=S.tasks||{};S.notes=S.notes||{};S.start=S.start||"2026-11-05";
+const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
+let curWeek=null, allOpen=false;
+
+const linkHTML=k=>{const x=L[k];if(!x)return"";return `<div class="lk"><span class="src">${x[2]}</span><a href="${x[1]}" target="_blank" rel="noopener">${x[0]}</a></div>`};
+const todayIdx=()=>{const s=new Date(S.start+"T00:00:00");const n=new Date();n.setHours(0,0,0,0);return Math.floor((n-s)/864e5)};
+const dateOf=i=>{const d=new Date(S.start+"T00:00:00");d.setDate(d.getDate()+i);return `${d.getMonth()+1}/${d.getDate()}`};
+const dayDone=i=>D[i].k.every((_,j)=>S.tasks[`${i}_${j}`]);
+
+function renderWeeks(){
+  document.getElementById("weeks").innerHTML=W.map((w,wi)=>{
+    const ids=D.map((d,i)=>d.w===wi?i:-1).filter(i=>i>=0);
+    let tot=0,dn=0;ids.forEach(i=>D[i].k.forEach((_,j)=>{tot++;if(S.tasks[`${i}_${j}`])dn++}));
+    return `<div class="wk ${curWeek===wi?"active":""}" data-w="${wi}"><div class="wn">${w.n} · D${ids[0]+1}–${ids[ids.length-1]+1}</div><div class="wt">${w.t}</div><div class="wd">${w.d}</div><div class="wp"><i style="width:${tot?dn/tot*100:0}%"></i></div></div>`}).join("");
+  document.querySelectorAll(".wk").forEach(el=>el.onclick=()=>{const w=+el.dataset.w;curWeek=curWeek===w?null:w;render()});
+}
+
+function renderDays(){
+  const ti=todayIdx();
+  document.getElementById("days").innerHTML=D.map((d,i)=>{
+    if(curWeek!==null&&d.w!==curWeek)return"";
+    const cnt=d.k.filter((_,j)=>S.tasks[`${i}_${j}`]).length;
+    const done=cnt===d.k.length;
+    const isToday=i===ti;
+    return `<div class="day ${done?"done":""} ${isToday?"today":""} ${allOpen||isToday?"open":""}" id="day${i}">
+      <div class="dhead" data-i="${i}">
+        <div class="dnum">${String(i+1).padStart(2,"0")}</div>
+        <div class="dmain"><div class="dtitle">${d.t}</div><div class="dsub">${d.s}</div></div>
+        ${isToday?'<span class="tag today">今天</span>':''}
+        <span class="tag">${dateOf(i)}</span>
+        <span class="dcount">${done?"✓ 完成":cnt+"/"+d.k.length}</span>
+        <span class="chev">›</span>
+      </div>
+      <div class="dbody">
+        <div class="blk"><h4>今日目标</h4><div class="goal">${d.g}</div></div>
+        <div class="blk"><h4>任务</h4>${d.k.map((t,j)=>{const c=S.tasks[`${i}_${j}`];return `<div class="task ${c?"checked":""}"><input type="checkbox" id="t${i}_${j}" data-k="${i}_${j}" ${c?"checked":""}><label for="t${i}_${j}">${t}</label></div>`}).join("")}</div>
+        ${d.l.length?`<div class="blk"><h4>资料</h4><div class="links">${d.l.map(linkHTML).join("")}</div></div>`:""}
+        <div class="blk"><h4>今日产出</h4><div class="out">${d.o}</div></div>
+        ${d.tip?`<div class="blk"><div class="tip">${d.tip}</div></div>`:""}
+        <div class="blk"><h4>笔记</h4><textarea data-n="${i}" placeholder="记录产出链接、踩坑、想法…">${S.notes[i]||""}</textarea></div>
+      </div></div>`}).join("");
+  document.querySelectorAll(".dhead").forEach(h=>h.onclick=()=>h.parentElement.classList.toggle("open"));
+  document.querySelectorAll(".task input").forEach(c=>c.onchange=()=>{S.tasks[c.dataset.k]=c.checked;save();const i=+c.dataset.k.split("_")[0];const open=[...document.querySelectorAll(".day.open")].map(e=>e.id);render();open.forEach(id=>{const e=document.getElementById(id);e&&e.classList.add("open")})});
+  document.querySelectorAll("textarea").forEach(t=>t.oninput=()=>{S.notes[t.dataset.n]=t.value;save()});
+}
+
+function renderProg(){
+  let tot=0,dn=0;D.forEach((d,i)=>d.k.forEach((_,j)=>{tot++;if(S.tasks[`${i}_${j}`])dn++}));
+  const days=D.filter((_,i)=>dayDone(i)).length;
+  document.getElementById("pfill").style.width=(dn/tot*100)+"%";
+  const ti=todayIdx();
+  const dayTxt=ti<0?`距开始还有 ${-ti} 天`:ti>=28?"计划周期已结束":`今天是第 ${ti+1} 天`;
+  document.getElementById("plbl").textContent=`${dn} / ${tot} 项任务 · ${days} / 28 天完成 · ${dayTxt}`;
+  document.getElementById("m-tasks").textContent=tot;
+}
+
+function renderLib(){
+  document.getElementById("lib").innerHTML=LIB.map(c=>`<div class="libc"><h3>${c.t}</h3>${c.k.map(linkHTML).join("")}</div>`).join("");
+  document.getElementById("m-links").textContent=Object.keys(L).length;
+}
+
+function render(){renderWeeks();renderDays();renderProg()}
+
+document.getElementById("start").value=S.start;
+document.getElementById("start").onchange=e=>{S.start=e.target.value;save();render()};
+document.getElementById("gotoday").onclick=()=>{const ti=todayIdx();if(ti<0||ti>=28){alert("今天不在 28 天计划周期内，可调整开始日期");return}curWeek=null;render();const el=document.getElementById("day"+ti);el.classList.add("open");el.scrollIntoView({behavior:"smooth",block:"center"})};
+document.getElementById("expand").onclick=e=>{allOpen=!allOpen;e.target.textContent=allOpen?"收起全部":"展开全部";render()};
+renderLib();render();
+</script>
+</body>
+</html>
