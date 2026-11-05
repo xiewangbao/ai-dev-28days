@@ -115,6 +115,66 @@ textarea{width:100%;min-height:70px;font-family:var(--sans);font-size:14px;paddi
 .band th{color:var(--on-dark);font-weight:500;font-size:13px}
 .band td:first-child{color:var(--on-dark);white-space:nowrap}
 footer{padding:32px 0 48px;font-size:12px;color:var(--muted)}
+/* nav */
+.navrow{display:flex;gap:4px;flex-wrap:wrap;padding-bottom:10px}
+.navrow a{font-size:13px;color:var(--body);border:none;padding:4px 10px;border-radius:6px}
+.navrow a:hover{background:var(--soft);color:var(--ink)}
+section[id]{scroll-margin-top:110px}
+.sec-lead{max-width:760px;color:var(--muted);margin:-8px 0 20px;font-size:14px}
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:12px;background:var(--soft);color:var(--body-strong);border:1px solid var(--hairline)}
+.chip:hover{border-color:var(--primary);color:var(--primary-active)}
+.fbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+.fchip{font-family:var(--sans);font-size:13px;padding:5px 12px;border-radius:16px;border:1px solid var(--hairline);background:#fff;color:var(--body);cursor:pointer}
+.fchip span{color:var(--muted-soft);font-size:11px;margin-left:2px}
+.fchip.on{background:var(--dark);border-color:var(--dark);color:var(--on-dark)}
+.fchip.on span{color:var(--on-dark-soft)}
+.search{font-family:var(--sans);font-size:14px;padding:8px 12px;border:1px solid var(--hairline);border-radius:8px;background:#fff;color:var(--ink);width:260px;max-width:100%}
+/* glossary */
+.glist{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.gterm{background:#fff;border:1px solid var(--hairline);border-radius:10px;padding:14px 16px;transition:box-shadow .3s}
+.gterm.flash{box-shadow:0 0 0 3px rgba(204,120,92,.45)}
+.gtop{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.gname{font-family:var(--serif);font-size:19px;color:var(--ink)}
+.gcat{font-size:11px;color:var(--muted);background:var(--soft);padding:1px 8px;border-radius:10px;white-space:nowrap}
+.gen{font-family:var(--mono);font-size:12px;color:var(--primary-active);margin:2px 0 6px}
+.gdesc{font-size:13.5px;color:var(--body-strong)}
+.gex{font-size:12.5px;color:var(--muted);margin-top:6px;padding-top:6px;border-top:1px dashed var(--hairline)}
+.empty{color:var(--muted);padding:20px}
+/* kol & community */
+.klist{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.kcard,.ccard{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:18px 20px}
+.khead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.kname{font-family:var(--serif);font-size:22px;color:var(--ink);line-height:1.2}
+.kh{font-size:12px;font-family:var(--mono)}
+.ctype{font-size:13px;color:var(--muted)}
+.krole{font-size:13px;color:var(--muted);margin:6px 0 4px}
+dl{margin-top:8px}
+dt{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted-soft);margin-top:10px;font-weight:500}
+dd{font-size:14px;color:var(--body-strong);margin-top:2px}
+/* posts */
+.post{display:grid;grid-template-columns:130px 1fr;gap:20px;padding:24px 0;border-top:1px solid var(--hairline)}
+.post.pre .pbody{opacity:.92}
+.pdate{font-family:var(--serif);font-size:18px;color:var(--primary);line-height:1.3}
+.pdate .tag{display:inline-block;margin-top:6px}
+.ptitle{font-size:24px;line-height:1.25;letter-spacing:-.3px;margin-bottom:6px}
+.pstat{font-size:12.5px;color:var(--muted);margin-bottom:12px}
+.quote{background:var(--soft);border-radius:10px;padding:12px 16px;margin-bottom:10px}
+.qwho{font-size:12px;color:var(--muted);margin-bottom:6px;display:flex;gap:8px;align-items:center}
+.badge{font-size:10.5px;padding:1px 7px;border-radius:8px}
+.badge.orig{background:#e3f1e6;color:#2f7a44}
+.badge.para{background:#fbeedd;color:#9a6420}
+.qen{font-family:var(--serif);font-size:17px;color:var(--ink);font-style:italic;line-height:1.45;margin-bottom:6px}
+.qzh{font-size:14.5px;color:var(--body-strong)}
+details{margin-top:6px;border:1px solid var(--hairline);border-radius:10px;background:#fff}
+summary{cursor:pointer;padding:10px 16px;font-size:13px;color:var(--primary-active);font-weight:500}
+.pblk{padding:0 16px 14px}
+.pblk h4{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:6px}
+.pblk p{font-size:14px;color:var(--body-strong)}
+.note{font-size:12.5px;color:var(--muted);background:#fbf3e6;border-radius:8px;padding:10px 14px;margin-bottom:8px}
+@media(max-width:900px){.glist{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.glist,.klist{grid-template-columns:1fr}.post{grid-template-columns:1fr;gap:6px}}
 @media(max-width:760px){.gap-grid,.lib{grid-template-columns:1fr}.weeks{grid-template-columns:1fr 1fr}.hero h1{font-size:34px}.dbody{padding-left:20px}}
 </style>
 </head>
@@ -130,6 +190,10 @@ footer{padding:32px 0 48px;font-size:12px;color:var(--muted)}
       <div><b>4</b>个阶段</div>
       <div><b id="m-tasks">–</b>项任务</div>
       <div><b id="m-links">–</b>条海外资料</div>
+      <div><b id="m-terms">–</b>个术语</div>
+      <div><b id="m-kol">–</b>位 KOL</div>
+      <div><b id="m-comm">–</b>个社区</div>
+      <div><b id="m-posts">–</b>条 X 热帖</div>
     </div>
   </div>
 </header>
@@ -143,6 +207,9 @@ footer{padding:32px 0 48px;font-size:12px;color:var(--muted)}
     <div class="startdate">开始日期 <input type="date" id="start"></div>
     <button class="btn primary" id="gotoday">跳到今天</button>
     <button class="btn" id="expand">展开全部</button>
+  </div>
+  <div class="wrap navrow">
+    <a href="#plan">每日进度</a><a href="#glossary">术语表</a><a href="#kol">KOL 地图</a><a href="#community">社区地图</a><a href="#posts">X 热帖</a><a href="#library">资料库</a>
   </div>
 </div>
 
@@ -176,7 +243,7 @@ footer{padding:32px 0 48px;font-size:12px;color:var(--muted)}
   </div>
 </section>
 
-<section style="padding-top:0">
+<section style="padding-top:0" id="plan">
   <div class="wrap">
     <div class="eyebrow">Daily Plan</div>
     <h2>每日进度</h2>
@@ -202,7 +269,47 @@ footer{padding:32px 0 48px;font-size:12px;color:var(--muted)}
   </div>
 </div>
 
-<section>
+<section id="glossary">
+  <div class="wrap">
+    <div class="eyebrow">Glossary</div>
+    <h2>新手术语表</h2>
+    <p class="sec-lead">按八类整理，每条给出中文解释和社区里的真实用法。每日卡片里的「今日术语」可直接跳转到这里。</p>
+    <div class="fbar"><input class="search" id="gsearch" placeholder="搜索术语，如 token、harness、PR…"></div>
+    <div class="fbar" id="gcats"></div>
+    <div class="glist" id="glist"></div>
+  </div>
+</section>
+
+<section id="kol" style="background:var(--soft)">
+  <div class="wrap">
+    <div class="eyebrow">KOL Map</div>
+    <h2>主流 KOL 地图</h2>
+    <p class="sec-lead">按身份分五类，每人列出影响力来源、主要讨论区域和关注价值。职位信息为 2026 年 11 月公开资料，变动以本人主页为准。</p>
+    <div class="fbar" id="kcats"></div>
+    <div class="klist" id="klist"></div>
+  </div>
+</section>
+
+<section id="community">
+  <div class="wrap">
+    <div class="eyebrow">Community Map</div>
+    <h2>主流社区地图</h2>
+    <p class="sec-lead">覆盖 X、HN、Reddit、GitHub、Discord、论坛与内容平台，重点看每个社区的话题分布、氛围规则和运营上可借鉴的做法。</p>
+    <div class="klist" id="clist"></div>
+  </div>
+</section>
+
+<section id="posts" style="background:var(--soft)">
+  <div class="wrap">
+    <div class="eyebrow">X Highlights · 2026.05–2026.11</div>
+    <h2>X 近半年热帖精选</h2>
+    <p class="sec-lead">围绕 OpenClaw、Claude Code 与 AI 开发者生态，按时间排列。每条含原文、中文翻译、背景解读、传播原因、运营视角和引申阅读。</p>
+    <div class="note">标「原文」的引文来自新闻报道或官方页面中可核实的原句；标「转述」的条目未取得原帖全文，以报道转述为准。浏览量为报道时的统计口径，仅作量级参考。X 搜索链接需登录后查看。</div>
+    <div id="plist"></div>
+  </div>
+</section>
+
+<section id="library">
   <div class="wrap">
     <div class="eyebrow">Resource Library</div>
     <h2>资料总库</h2>
@@ -481,6 +588,7 @@ function renderDays(){
       </div>
       <div class="dbody">
         <div class="blk"><h4>今日目标</h4><div class="goal">${d.g}</div></div>
+        ${typeof termChips==="function"?termChips(i):""}
         <div class="blk"><h4>任务</h4>${d.k.map((t,j)=>{const c=S.tasks[`${i}_${j}`];return `<div class="task ${c?"checked":""}"><input type="checkbox" id="t${i}_${j}" data-k="${i}_${j}" ${c?"checked":""}><label for="t${i}_${j}">${t}</label></div>`}).join("")}</div>
         ${d.l.length?`<div class="blk"><h4>资料</h4><div class="links">${d.l.map(linkHTML).join("")}</div></div>`:""}
         <div class="blk"><h4>今日产出</h4><div class="out">${d.o}</div></div>
@@ -515,5 +623,6 @@ document.getElementById("gotoday").onclick=()=>{const ti=todayIdx();if(ti<0||ti>
 document.getElementById("expand").onclick=e=>{allOpen=!allOpen;e.target.textContent=allOpen?"收起全部":"展开全部";render()};
 renderLib();render();
 </script>
+<script src="extra.js"></script>
 </body>
 </html>
