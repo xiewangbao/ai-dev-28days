@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>社区表达学习笔记</title>
+<style>
+:root{
+  --primary:#cc785c;--primary-active:#a9583e;--ink:#141413;--body:#3d3d3a;--body-strong:#252523;
+  --muted:#6c6a64;--muted-soft:#8e8b82;--hairline:#e6dfd8;--canvas:#faf9f5;--soft:#f5f0e8;
+  --cream:#e8e0d2;--dark:#181715;--on-dark:#faf9f5;--on-dark-soft:#a09d96;--success:#5db872;
+  --serif:"Cormorant Garamond","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --sans:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--canvas);color:var(--body);font-family:var(--sans);font-size:15px;line-height:1.6}
+a{color:var(--primary-active);text-decoration:none;border-bottom:1px solid rgba(204,120,92,.35)}
+a:hover{border-bottom-color:var(--primary-active)}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--serif);font-weight:400;color:var(--ink)}
+.eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:500}
+.hero{padding:48px 0 32px;border-bottom:1px solid var(--hairline)}
+.back{font-size:13px;border:none;color:var(--muted)}
+.hero h1{font-size:44px;line-height:1.1;letter-spacing:-1px;margin:14px 0 12px}
+.hero p{max-width:680px}
+.meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:22px}
+.meta div{font-size:13px;color:var(--muted)}
+.meta b{display:block;font-family:var(--serif);font-weight:400;font-size:28px;color:var(--ink)}
+.how{background:var(--soft);border-radius:12px;padding:16px 20px;margin-top:22px;font-size:14px}
+.how b{color:var(--ink);font-weight:500}
+.how ol{padding-left:20px;margin-top:6px}
+.bar{position:sticky;top:0;z-index:5;background:rgba(250,249,245,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--hairline);padding:12px 0}
+.bar .wrap{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.search{font-family:var(--sans);font-size:14px;padding:8px 12px;border:1px solid var(--hairline);border-radius:8px;background:#fff;color:var(--ink);width:240px;max-width:100%}
+.fchip{font-family:var(--sans);font-size:13px;padding:5px 12px;border-radius:16px;border:1px solid var(--hairline);background:#fff;color:var(--body);cursor:pointer}
+.fchip span{color:var(--muted-soft);font-size:11px;margin-left:2px}
+.fchip.on{background:var(--dark);border-color:var(--dark);color:var(--on-dark)}
+.fchip.on span{color:var(--on-dark-soft)}
+.btn{font-family:var(--sans);font-size:13px;padding:7px 14px;border-radius:8px;border:1px solid var(--primary);background:var(--primary);color:#fff;cursor:pointer;margin-left:auto}
+.btn:hover{background:var(--primary-active)}
+main{padding:28px 0 60px}
+.day{margin-bottom:28px}
+.dayh{display:flex;align-items:baseline;gap:12px;margin-bottom:12px}
+.dayh h2{font-size:26px}
+.dayh span{font-size:13px;color:var(--muted)}
+.note{background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:20px 22px;margin-bottom:12px;transition:box-shadow .3s}
+.note.flash{box-shadow:0 0 0 3px rgba(204,120,92,.45)}
+.note.known{opacity:.62}
+.nhead{display:flex;align-items:flex-start;gap:12px}
+.nterm{font-family:var(--serif);font-size:28px;color:var(--ink);line-height:1.15;flex:1}
+.tag{font-size:11px;padding:2px 9px;border-radius:10px;background:var(--soft);color:var(--muted);white-space:nowrap}
+.tag.demo{background:#fbeedd;color:#9a6420}
+.nzh{font-size:16px;color:var(--body-strong);margin:6px 0 2px}
+.nsrc{font-size:12.5px;color:var(--muted)}
+.ctx{margin-top:12px;background:var(--soft);border-left:3px solid var(--primary);border-radius:0 8px 8px 0;padding:10px 14px;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--ink)}
+.ctx a{font-family:var(--sans);font-style:normal;font-size:12px;margin-left:8px}
+.blk{margin-top:14px}
+.blk h4{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:5px}
+.blk p{font-size:14.5px;color:var(--body-strong)}
+.tone{font-size:14px;background:#fbf3e6;border-radius:8px;padding:9px 13px;color:var(--body-strong)}
+.ex{padding:6px 0;border-bottom:1px dashed var(--hairline)}
+.ex:last-child{border-bottom:none}
+.ex .en{font-family:var(--serif);font-size:16.5px;color:var(--ink)}
+.ex .cn{font-size:13.5px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 10px;border-radius:12px;background:var(--soft);color:var(--body-strong);border:1px solid var(--hairline)}
+.lk{display:flex;gap:10px;align-items:baseline;font-size:14px;padding:2px 0}
+.lk .src{font-size:11px;color:var(--muted);background:var(--soft);padding:1px 7px;border-radius:4px;white-space:nowrap;font-family:var(--mono)}
+.nfoot{display:flex;justify-content:flex-end;margin-top:14px}
+.known-btn{font-family:var(--sans);font-size:12.5px;padding:5px 12px;border-radius:8px;border:1px solid var(--hairline);background:#fff;color:var(--body);cursor:pointer}
+.known-btn.on{background:#e3f1e6;border-color:#bfe0c7;color:#2f7a44}
+.empty{text-align:center;color:var(--muted);padding:48px 0}
+footer{padding:24px 0 48px;font-size:12px;color:var(--muted);border-top:1px solid var(--hairline)}
+@media(max-width:640px){.hero h1{font-size:32px}.btn{margin-left:0}.nterm{font-size:24px}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <a class="back" href="index.html">← 返回 28 天计划</a>
+    <div class="eyebrow" style="margin-top:18px">Learning Notes</div>
+    <h1>社区表达学习笔记</h1>
+    <p>逛 Reddit、HN、Discord、X、GitHub 时遇到的看不懂的表达和术语，逐条记录：中文意思、语气场合、例句、相关术语和引申阅读。按记录日期倒序排列。</p>
+    <div class="meta">
+      <div><b id="s-total">–</b>条笔记</div>
+      <div><b id="s-week">–</b>条近 7 天新增</div>
+      <div><b id="s-known">–</b>条已掌握</div>
+      <div><b id="s-days">–</b>天有记录</div>
+    </div>
+    <div class="how">
+      <b>怎么新增：</b>把看不懂的表达发给 DJN 即可，最好附上
+      <ol>
+        <li>原句（直接粘贴文字最好，截图常被压缩、小字难读）</li>
+        <li>出处：哪个平台 / 版块，有链接更好</li>
+      </ol>
+      整理好后会追加到这里并同步到线上，刷新页面即可看到。
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <input class="search" id="q" placeholder="搜索表达、解释、例句…">
+    <div id="types" style="display:contents"></div>
+    <button class="fchip" id="hideKnown">隐藏已掌握</button>
+    <button class="btn" id="random">随机抽一条复习</button>
+  </div>
+</div>
+
+<main>
+  <div class="wrap" id="list"></div>
+</main>
+
+<footer>
+  <div class="wrap">本页公开可访问，记录内容请勿涉及公司内部信息。「已掌握」标记只保存在当前浏览器。相关术语链接指向主站术语表。</div>
+</footer>
+
+<script src="notes.js"></script>
+<script>
+const TYPES={slang:"俚语",term:"术语",abbr:"缩写",phrase:"句式"};
+const KEY="devnotes_known_v1";
+let known=JSON.parse(localStorage.getItem(KEY)||"{}");
+let fType="all",q="",hideKnown=false;
+const esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const nid=n=>(n.date+"_"+n.term).replace(/[^\w\u4e00-\u9fa5-]/g,"_");
+const WD=["周日","周一","周二","周三","周四","周五","周六"];
+
+function card(n){
+  const id=nid(n),k=!!known[id];
+  return `<article class="note ${k?"known":""}" id="n-${id}">
+    <div class="nhead"><div class="nterm">${esc(n.term)}</div>${n.demo?'<span class="tag demo">示例</span>':""}<span class="tag">${TYPES[n.type]||esc(n.type)}</span></div>
+    <div class="nzh">${esc(n.zh)}</div>
+    <div class="nsrc">出处：${esc(n.src)}</div>
+    ${n.ctx?`<div class="ctx">“${esc(n.ctx)}”${n.ctxUrl?`<a href="${n.ctxUrl}" target="_blank" rel="noopener">原帖 ↗</a>`:""}</div>`:""}
+    ${n.explain?`<div class="blk"><h4>解释</h4><p>${esc(n.explain)}</p></div>`:""}
+    ${n.tone?`<div class="blk"><h4>语气与场合</h4><div class="tone">${esc(n.tone)}</div></div>`:""}
+    ${n.ex&&n.ex.length?`<div class="blk"><h4>例句</h4>${n.ex.map(e=>`<div class="ex"><div class="en">${esc(e[0])}</div><div class="cn">${esc(e[1])}</div></div>`).join("")}</div>`:""}
+    ${n.rel&&n.rel.length?`<div class="blk"><h4>相关术语</h4><div class="chips">${n.rel.map(r=>`<a class="chip" href="index.html#g-${r}">${esc(r)}</a>`).join("")}</div></div>`:""}
+    ${n.read&&n.read.length?`<div class="blk"><h4>引申阅读</h4>${n.read.map(r=>`<div class="lk"><span class="src">${esc(r[2]||"link")}</span><a href="${r[1]}" target="_blank" rel="noopener">${esc(r[0])}</a></div>`).join("")}</div>`:""}
+    <div class="nfoot"><button class="known-btn ${k?"on":""}" data-id="${id}">${k?"✓ 已掌握":"标记为已掌握"}</button></div>
+  </article>`;
+}
+
+function render(){
+  const all=NOTES.slice().sort((a,b)=>b.date.localeCompare(a.date));
+  document.getElementById("types").innerHTML=["all",...Object.keys(TYPES)].map(t=>{const c=t==="all"?all.length:all.filter(n=>n.type===t).length;return `<button class="fchip ${fType===t?"on":""}" data-t="${t}">${t==="all"?"全部":TYPES[t]} <span>${c}</span></button>`}).join("");
+  document.querySelectorAll("#types .fchip").forEach(b=>b.onclick=()=>{fType=b.dataset.t;render()});
+  const qq=q.trim().toLowerCase();
+  const list=all.filter(n=>(fType==="all"||n.type===fType)&&(!hideKnown||!known[nid(n)])&&(!qq||JSON.stringify(n).toLowerCase().includes(qq)));
+  const groups={};list.forEach(n=>(groups[n.date]=groups[n.date]||[]).push(n));
+  const el=document.getElementById("list");
+  el.innerHTML=list.length?Object.keys(groups).map(d=>{const dt=new Date(d+"T00:00:00");return `<section class="day"><div class="dayh"><h2>${dt.getMonth()+1} 月 ${dt.getDate()} 日</h2><span>${WD[dt.getDay()]} · ${groups[d].length} 条</span></div>${groups[d].map(card).join("")}</section>`}).join(""):`<div class="empty">${NOTES.length?"没有匹配的笔记":"还没有笔记，把第一条看不懂的表达发给 DJN 吧"}</div>`;
+  document.querySelectorAll(".known-btn").forEach(b=>b.onclick=()=>{const id=b.dataset.id;known[id]?delete known[id]:known[id]=1;localStorage.setItem(KEY,JSON.stringify(known));render()});
+  const wk=new Date();wk.setHours(0,0,0,0);wk.setDate(wk.getDate()-6);
+  document.getElementById("s-total").textContent=NOTES.length;
+  document.getElementById("s-week").textContent=NOTES.filter(n=>new Date(n.date+"T00:00:00")>=wk).length;
+  document.getElementById("s-known").textContent=NOTES.filter(n=>known[nid(n)]).length;
+  document.getElementById("s-days").textContent=new Set(NOTES.map(n=>n.date)).size;
+  document.getElementById("hideKnown").classList.toggle("on",hideKnown);
+}
+document.getElementById("q").oninput=e=>{q=e.target.value;render()};
+document.getElementById("hideKnown").onclick=()=>{hideKnown=!hideKnown;render()};
+document.getElementById("random").onclick=()=>{
+  const pool=NOTES.filter(n=>!known[nid(n)]);const src=pool.length?pool:NOTES;if(!src.length)return;
+  const n=src[Math.floor(Math.random()*src.length)];
+  fType="all";q="";hideKnown=false;document.getElementById("q").value="";render();
+  const el=document.getElementById("n-"+nid(n));el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1600);
+};
+render();
+</script>
+</body>
+</html>
